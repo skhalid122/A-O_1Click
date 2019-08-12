@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "43509448-25ec-4423-b12f-95fb81cdf100",
+		"name": "AS3_Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST DO",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"schemaVersion\": \"1.0.0\",\r\n    \"class\": \"Device\",\r\n    \"async\": true,\r\n    \"webhook\": \"https://example.com/myHook\",\r\n    \"label\": \"my BIG-IP declaration for declarative onboarding\",\r\n    \"Common\": {\r\n        \"class\": \"Tenant\",\r\n        \"hostname\": \"bigip.example.com\",\r\n        \"myLicense\": {\r\n            \"class\": \"License\",\r\n            \"licenseType\": \"regKey\",\r\n            \"regKey\": \"AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE\"\r\n        },\r\n        \"myDns\": {\r\n            \"class\": \"DNS\",\r\n            \"nameServers\": [\r\n                \"8.8.8.8\",\r\n                \"2001:4860:4860::8844\"\r\n            ],\r\n            \"search\": [\r\n                \"f5.com\"\r\n            ]\r\n        },\r\n        \"myNtp\": {\r\n            \"class\": \"NTP\",\r\n            \"servers\": [\r\n                \"0.pool.ntp.org\",\r\n                \"1.pool.ntp.org\",\r\n                \"2.pool.ntp.org\"\r\n            ],\r\n            \"timezone\": \"UTC\"\r\n        },\r\n        \"admin\": {\r\n            \"class\": \"User\",\r\n            \"userType\": \"regular\",\r\n            \"password\": \"admin\",\r\n            \"shell\": \"bash\"\r\n        },\r\n        \"guestUser\": {\r\n            \"class\": \"User\",\r\n            \"userType\": \"regular\",\r\n            \"password\": \"guestNewPass1\",\r\n            \"partitionAccess\": {\r\n                \"Common\": {\r\n                    \"role\": \"guest\"\r\n                }\r\n            }\r\n        },\r\n        \"anotherUser\": {\r\n            \"class\": \"User\",\r\n            \"userType\": \"regular\",\r\n            \"password\": \"myPass1word\",\r\n            \"shell\": \"none\",\r\n            \"partitionAccess\": {\r\n                \"all-partitions\": {\r\n                    \"role\": \"guest\"\r\n                }\r\n            }\r\n        },\r\n        \"myProvisioning\": {\r\n            \"class\": \"Provision\",\r\n            \"ltm\": \"nominal\",\r\n            \"gtm\": \"minimum\",\r\n            \"asm\": \"nominal\"\r\n        },\r\n        \"internal\": {\r\n            \"class\": \"VLAN\",\r\n            \"tag\": 4093,\r\n            \"mtu\": 1500,\r\n            \"interfaces\": [\r\n                {\r\n                    \"name\": \"1.2\",\r\n                    \"tagged\": true\r\n                }\r\n            ]\r\n        },\r\n        \"internal-self\": {\r\n            \"class\": \"SelfIp\",\r\n            \"address\": \"10.10.0.100/24\",\r\n            \"vlan\": \"internal\",\r\n            \"allowService\": \"default\",\r\n            \"trafficGroup\": \"traffic-group-local-only\"\r\n        },\r\n        \"external\": {\r\n            \"class\": \"VLAN\",\r\n            \"tag\": 4094,\r\n            \"mtu\": 1500,\r\n            \"interfaces\": [\r\n                {\r\n                    \"name\": \"1.1\",\r\n                    \"tagged\": true\r\n                }\r\n            ]\r\n        },\r\n        \"external-self\": {\r\n            \"class\": \"SelfIp\",\r\n            \"address\": \"10.20.0.100/24\",\r\n            \"vlan\": \"external\",\r\n            \"allowService\": \"none\",\r\n            \"trafficGroup\": \"traffic-group-local-only\"\r\n        },\r\n        \"default\": {\r\n            \"class\": \"Route\",\r\n            \"gw\": \"10.10.0.1\",\r\n            \"network\": \"default\",\r\n            \"mtu\": 1500\r\n        },\r\n        \"managementRoute\": {\r\n            \"class\": \"ManagementRoute\",\r\n            \"gw\": \"1.2.3.4\",\r\n            \"network\": \"4.3.2.1\",\r\n            \"mtu\": 1000,\r\n            \"type\": \"interface\"\r\n        },\r\n        \"dbvars\": {\r\n        \t\"class\": \"DbVariables\",\r\n        \t\"ui.advisory.enabled\": true,\r\n        \t\"ui.advisory.color\": \"green\",\r\n        \t\"ui.advisory.text\": \"/Common/hostname\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "https://10.1.1.10/mgmt/shared/declarative-onboarding",
+					"protocol": "https",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"10"
+					],
+					"path": [
+						"mgmt",
+						"shared",
+						"declarative-onboarding"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET DO",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://10.1.1.10/mgmt/shared/declarative-onboarding",
+					"protocol": "https",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"10"
+					],
+					"path": [
+						"mgmt",
+						"shared",
+						"declarative-onboarding"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST AS3",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n       \"class\": \"ADC\",\n       \"schemaVersion\": \"3.13.0\",\n       \"label\": \"Sample AS3 declaration with sample security policy\",\n       \"remark\": \"Simple HTTP application with RR pool\",\n       \"Example_01\": {\n          \"class\": \"Tenant\",\n          \"App1\": {\n             \"class\": \"Application\",\n             \"template\": \"http\",\n             \"serviceMain\": {\n                \"class\": \"Service_HTTP\",\n                \"virtualAddresses\": [\n                   \"10.1.10.10\"\n                ],\n                \"snat\": \"auto\",\n               \"policyWAF\": {\n                   \"use\": \"Security_Policy\"\n               },\n       \n                \n                \"pool\": \"web_pool\"\n             },\n             \"web_pool\": {\n                \"class\": \"Pool\",\n                \"monitors\": [\n                   \"http\"\n                ],\n                \"members\": [{\n                   \"servicePort\": 8080,\n                   \"serverAddresses\": [\n                      \"10.1.20.5\"\n                   ]\n                },\n                {\n                    \"servicePort\": 8081,\n                   \"serverAddresses\": [\n                      \"10.1.20.5\"\n                   ]\n                },\n                {\n                    \"servicePort\": 8082,\n                   \"serverAddresses\": [\n                      \"10.1.20.5\"\n                   ]\n                }\n                \n                ]\n             },\n             \"Security_Policy\":{\n                 \"class\": \"WAF_Policy\",\n                 \"url\": \"http://download.ase-exercise.internal/asm_sec_policy.xml\",\n                 \"ignoreChanges\": true\n             }\n             \n          }\n       }\n    }\n }"
+				},
+				"url": {
+					"raw": "https://10.1.1.10/mgmt/shared/appsvcs/declare",
+					"protocol": "https",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"10"
+					],
+					"path": [
+						"mgmt",
+						"shared",
+						"appsvcs",
+						"declare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE AS3",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://10.1.1.10/mgmt/shared/appsvcs/declare",
+					"protocol": "https",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"10"
+					],
+					"path": [
+						"mgmt",
+						"shared",
+						"appsvcs",
+						"declare"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
